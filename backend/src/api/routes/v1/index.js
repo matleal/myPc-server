@@ -1,9 +1,11 @@
 const express = require('express');
+const cors = require('cors');
 const userRoutes = require('./user.route');
 const authRoutes = require('./auth.route');
 const productRoutes = require('./product.route');
 
 const router = express.Router();
+router.use(cors());
 
 /**
  * GET v1/status
