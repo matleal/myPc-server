@@ -3,6 +3,8 @@ const express = require('express');
 const validate = require('express-validation');
 const controller = require('../../controllers/product.controller');
 const userController = require('../../controllers/user.controller');
+const { authorize } = require('../../middlewares/auth');
+
 
 const { createProduct } = require('../../validations/product.validation');
 
