@@ -8,7 +8,10 @@ const Product = require('../models/product.model');
  */
 exports.create = async (req, res, next) => {
   try {
+    console.log(req.file);
     const entity = new Product(req.body);
+    entity.image = req.file.path;
+    console.log(entity);
     // entity.userId = req.user._id;
 
     const saved = await entity.save();

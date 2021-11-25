@@ -19,6 +19,6 @@ router.use('/docs', express.static('docs'));
 
 router.use('/users', userRoutes);
 router.use('/auth', authRoutes);
-
+router.use('/products', productRoutes);
 
 module.exports = router;
