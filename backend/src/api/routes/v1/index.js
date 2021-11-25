@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+
+const path = require('path');
 const userRoutes = require('./user.route');
 const authRoutes = require('./auth.route');
 const productRoutes = require('./product.route');
@@ -20,5 +22,6 @@ router.use('/docs', express.static('docs'));
 router.use('/users', userRoutes);
 router.use('/auth', authRoutes);
 router.use('/products', productRoutes);
+router.use(express.static('uploads'));
 
 module.exports = router;
