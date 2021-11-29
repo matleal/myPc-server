@@ -25,6 +25,28 @@ exports.create = async (req, res, next) => {
 };
 
 /**
+ * Get Product
+ * @public
+ */
+// eslint-disable-next-line consistent-return
+exports.get = async (req, res, next) => {
+  try {
+    const entity = await Product.findById(req.params.id);
+
+    if (!entity) {
+      res.status(httpStatus.NOT_FOUND);
+      res.json('Not found.');
+      return next();
+    }
+
+    res.status(httpStatus.OK);
+    res.json(entity);
+  } catch (error) {
+    return next(error);
+  }
+};
+
+/**
  * List Products
  * @public
  */

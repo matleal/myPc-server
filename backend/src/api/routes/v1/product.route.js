@@ -7,7 +7,7 @@ const controller = require('../../controllers/product.controller');
 const userController = require('../../controllers/user.controller');
 
 const { createProduct } = require('../../validations/product.validation');
-// const { authorize } = require('../../middlewares/auth');
+const { authorize, ADMIN } = require('../../middlewares/auth');
 
 // Multer configuration
 const storage = multer.diskStorage({
@@ -73,6 +73,26 @@ router
    * @apiError (Forbidden 403)    Forbidden    Only user with same id can access the data
    * @apiError (Not Found 404)    NotFound     Product does not exist
    */
-  .get(controller.list);
+  .get(authorize(ADMIN), controller.list);
+
+router
+  .route('/:id')
+  /**
+   * @api {get} v1/product/:id Get Product
+   * @apiDescription Get Product information
+   * @apiVersion 1.0.0
+   * @apiName GetProduct
+   * @apiGroup Product
+   * @apiPermission User
+   *
+   * @apiHeader {String} Authorization  User's access token
+   *
+   * @apiSuccess {Object}   Product        Product
+   *
+   * @apiError (Unauthorized 401) Unauthorized Only authenticated users (with permissions) can access the data
+   * @apiError (Forbidden 403)    Forbidden    Only user with same id can access the data
+   * @apiError (Not Found 404)    NotFound     Product does not exist
+   */
+  .get(controller.get);
 
 module.exports = router;
