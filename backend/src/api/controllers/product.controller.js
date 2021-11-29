@@ -8,12 +8,14 @@ const Product = require('../models/product.model');
  */
 exports.create = async (req, res, next) => {
   try {
+    console.log(req.user);
+    console.log(req.body);
     console.log(req.file);
     // eslint-disable-next-line prefer-const
     let entity = new Product(req.body);
     entity.image = `http://localhost:3000/v1/${req.file.filename}`;
-    console.log(entity);
     // entity.userId = req.user._id;
+    console.log(entity);
 
     const saved = await entity.save();
 

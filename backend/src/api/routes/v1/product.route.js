@@ -5,9 +5,9 @@ const multer = require('multer');
 
 const controller = require('../../controllers/product.controller');
 const userController = require('../../controllers/user.controller');
+const { authorize } = require('../../middlewares/auth');
 
 const { createProduct } = require('../../validations/product.validation');
-// const { authorize } = require('../../middlewares/auth');
 
 // Multer configuration
 const storage = multer.diskStorage({
@@ -53,7 +53,7 @@ router
   * @apiError (Unauthorized 401) Unauthorized Only authenticated users (with permissions) can access the data
   * @apiError (Forbidden 403)    Forbidden    Only user with same id can access the data
   */
-  .post(upload.single('image'), validate(createProduct), controller.create);
+  .post(authorize(), upload.single('image'), validate(createProduct), controller.create);
 
 router
   .route('/all')
