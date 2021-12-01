@@ -14,7 +14,8 @@ exports.create = async (req, res, next) => {
     // eslint-disable-next-line prefer-const
     let entity = new Product(req.body);
     entity.image = `http://localhost:3000/v1/${req.file.filename}`;
-    // entity.userId = req.user._id;
+    entity.whatsappContent = `https://api.whatsapp.com/send?phone=55${entity.contact}`;
+    entity.userId = req.user._id;
     console.log(entity);
 
     const saved = await entity.save();

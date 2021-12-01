@@ -14,6 +14,15 @@ const ProductSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  contact: {
+    type: String,
+    required: true,
+  },
+  whatsappContact: String,
+  adress: {
+    type: String,
+    required: true,
+  },
   image: String,
   userId: String,
 });
