@@ -69,3 +69,24 @@ exports.list = async (req, res, next) => {
     return next(error);
   }
 };
+
+/**
+ * Delete Product
+ * @public
+ */
+// eslint-disable-next-line consistent-return
+exports.remove = async (req, res, next) => {
+  try {
+    const entity = await Product.findById(req.params.id);
+
+    if (!entity) {
+      res.status(httpStatus.NOT_FOUND);
+      return next();
+    }
+    await entity.remove();
+    res.status(httpStatus.NO_CONTENT);
+    res.end();
+  } catch (error) {
+    return next(error);
+  }
+};

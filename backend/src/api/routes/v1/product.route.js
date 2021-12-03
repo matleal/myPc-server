@@ -93,6 +93,22 @@ router
    * @apiError (Forbidden 403)    Forbidden    Only user with same id can access the data
    * @apiError (Not Found 404)    NotFound     Product does not exist
    */
-  .get(authorize(), controller.get);
+  .get(authorize(), controller.get)
+  /**
+   * @api {get} v1/product/:id Delete Product
+   * @apiDescription Delete product of the id
+   * @apiVersion 1.0.0
+   * @apiName DeleteProduct
+   * @apiGroup Product
+   * @apiPermission User
+   *
+   * @apiHeader {String} Authorization  User's access token
+   *
+   * @apiSuccess (No Content 204)  Successfully deleted
+   *
+   * @apiError (Unauthorized 401) Unauthorized Only authenticated users (with permissions) can access the data
+   * @apiError (Not Found 404)    NotFound     Product does not exist
+   */
+  .delete(authorize(), controller.remove);
 
 module.exports = router;
