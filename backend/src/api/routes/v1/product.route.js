@@ -53,7 +53,28 @@ router
   * @apiError (Unauthorized 401) Unauthorized Only authenticated users (with permissions) can access the data
   * @apiError (Forbidden 403)    Forbidden    Only user with same id can access the data
   */
-  .post(authorize(), upload.single('image'), validate(createProduct), controller.create);
+  .post(authorize(), upload.single('image'), validate(createProduct), controller.create)
+  /**
+   * @api {put} v1/product Update Product
+   * @apiDescription Update a Product
+   * @apiVersion 1.0.0
+   * @apiName updateProduct
+   * @apiGroup Product
+   * @apiPermission User
+   *
+   * @apiHeader {String} Authorization  User's access token
+   *
+  * @apiParam  {String}                 _id       Product id
+   * @apiParam  {Object}                 Product     Product object
+   *
+   * @apiSuccess {String}   _id        Product id
+   *
+   * @apiError (Bad Request 400)  ValidationError  Some parameters may contain invalid values
+   * @apiError (Unauthorized 401) Unauthorized Only authenticated users (with permissions) can access the data
+   * @apiError (Forbidden 403)    Forbidden    Only user with same id can access the data
+   * @apiError (Not Found 404)    NotFound     Product does not exist
+   */
+  .put(authorize(), upload.single('image'), controller.update);
 
 router
   .route('/all')
