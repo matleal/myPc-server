@@ -70,6 +70,31 @@ exports.list = async (req, res, next) => {
   }
 };
 
+/**
+ * List Products By User Id
+ * @public
+ */
+// eslint-disable-next-line consistent-return
+exports.listByUserId = async (req, res, next) => {
+  try {
+    const querry = { userId: req.user._id };
+    let entities = await Product.find(querry).sort({ title: 1 });
+
+    if (!entities) {
+      res.status(httpStatus.NOT_FOUND);
+      res.json('Not found.');
+      return next();
+    }
+
+    entities = map(entities, (entity) => omit(entity.toObject(), ['createdAt', 'updatedAt', '__v']));
+
+    res.status(httpStatus.OK);
+    res.json(entities);
+  } catch (error) {
+    return next(error);
+  }
+};
+
 // eslint-disable-next-line consistent-return
 exports.update = async (req, res, next) => {
   try {
